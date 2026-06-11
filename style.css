@@ -7,7 +7,7 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    font-size: 30px;
+    font-size: 25px;
     margin: 0;
 }
 
@@ -18,11 +18,11 @@ h1 {
 
 /* Estilo para el botón */
 button {
-    background-color: #4a90e2;
+    background-color: #4f006e;
     color: white;
     border: none;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 25px;
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s ease;
