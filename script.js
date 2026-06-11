@@ -2,7 +2,6 @@
 const boton = document.getElementById('elBoton');
 
 // Escuchamos cuando el usuario hace clic
-dialog.addEventListener('click', function() {
-    // Mostramos un mensaje de alerta
-    alert('quieres salir a tomar una tapioca conmigo?');
-})
+boton.addEventListener('click', () => {
+    alert('Te invito a tomar una tapioca el dia sabado, aceptas amor?');
+});
