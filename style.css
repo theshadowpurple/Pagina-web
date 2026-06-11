@@ -1,0 +1,34 @@
+body {
+    font-family: 'arial black', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #000000;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-size: 30px;
+    margin: 0;
+}
+
+/* Estilo para el título */
+h1 {
+    color: #ffffff;
+}
+
+/* Estilo para el botón */
+button {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+/* Efecto cuando pasas el mouse sobre el botón */
+button:hover {
+    background-color: #e70707;
+}
