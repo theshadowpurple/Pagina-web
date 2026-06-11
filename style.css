@@ -20,8 +20,9 @@ main {
 
 /* Estilo para el título */
 h1 {
+    text-align: center; /* Alinea el título a la izquierda */
     color: #ffffff;
-    font-size: 35px;
+    font-size: 25px;
 }
 
 
@@ -45,7 +46,7 @@ button:hover {
 
 img {
     display: block;
-    width: 60%;
+    width: 50%;
     max-width: 600px;
     height: auto;
     border: 6px solid #000000;
