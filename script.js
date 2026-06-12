@@ -1,10 +1,11 @@
+const musica = new Audio('https://theshadowpurple.github.io/Pagina-web/musica/amor-completo.mp3');
 // Seleccionamos el botón por su ID
 const boton = document.getElementById('elBoton');
 const botonMusica = document.getElementById('botonMusica');
 const contador = document.getElementById('contador');
 const musica = new Audio('./musica/amor-completo.mp3');
 musica.loop = true; // Reproducir en bucle
-
+musica.load(); // Carga la música para evitar retrasos al reproducir
 
 // FUNCIÓN AUXILIAR: Transforma segundos sueltos a formato "Minutos:Segundos" (0:00)
 function formatearTiempo(segundos) {
