@@ -1,18 +1,18 @@
+// 1. CONFIGURACIÓN DE AUDIO (Usando la ruta absoluta correcta con mayúsculas para GitHub y celular)
 const musica = new Audio('https://theshadowpurple.github.io/Pagina-web/musica/amor-completo.mp3');
-// Seleccionamos el botón por su ID
+musica.loop = true; 
+musica.load(); // Fuerza la carga en celulares
+
+// 2. SELECCIÓN DE ELEMENTOS DEL HTML
 const boton = document.getElementById('elBoton');
 const botonMusica = document.getElementById('botonMusica');
 const contador = document.getElementById('contador');
-const musica = new Audio('./musica/amor-completo.mp3');
-musica.loop = true; // Reproducir en bucle
-musica.load(); // Carga la música para evitar retrasos al reproducir
 
 // FUNCIÓN AUXILIAR: Transforma segundos sueltos a formato "Minutos:Segundos" (0:00)
 function formatearTiempo(segundos) {
-    if (isNaN(segundos)) return "0:00";
+    if (isNaN(segundos) || !isFinite(segundos)) return "0:00";
     const minutos = Math.floor(segundos / 60);
     const segRestantes = Math.floor(segundos % 60);
-    // Agrega un cero a la izquierda si los segundos son menores a 10
     return `${minutos}:${segRestantes < 10 ? '0' : ''}${segRestantes}`;
 }
 
@@ -22,10 +22,10 @@ musica.addEventListener('timeupdate', () => {
     const tiempoTotal = formatearTiempo(musica.duration);
     
     // Actualiza el texto en la pantalla en tiempo real
-    contador.innerHTML = `${tiempoActual} / ${tiempoTotal}`;
+    if (contador) {
+        contador.innerHTML = `${tiempoActual} / ${tiempoTotal}`;
+    }
 });
-
-
 
 // LÓGICA DEL BOTÓN DE MÚSICA (Play / Pausa)
 botonMusica.addEventListener('click', (e) => {
@@ -35,19 +35,17 @@ botonMusica.addEventListener('click', (e) => {
         musica.play()
             .then(() => {
                 botonMusica.innerHTML = "Pausar música ⏸️";
-                
                 botonMusica.style.color = "#000000";
             })
             .catch(error => console.log("Error al reproducir:", error));
     } else {
         musica.pause();
         botonMusica.innerHTML = "Reanudar música 🎵";
-        
         botonMusica.style.color = "#000000";
     }
 });
 
-// Escuchamos cuando el usuario hace clic
+// LÓGICA DEL BOTÓN PRINCIPAL ("Toca aqui")
 boton.addEventListener('click', () => {
     // confirm() abre la ventana con dos opciones (Aceptar / Cancelar)
     const acepto = confirm('Te invito a tomar una tapioca el dia sabado, aceptas amor?');
@@ -59,8 +57,7 @@ boton.addEventListener('click', () => {
         musica.pause();
         // Si le da clic a "Cancelar" (No acepto)
         alert('¿Cómo que no? 😱');
-        musica.pause();
         window.close(); // Cierra la ventana del navegador
+        window.location.href = "https://www.google.com"; // Respaldo por si el cel bloquea el close()
     }
-
 });
