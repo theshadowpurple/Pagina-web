@@ -37,6 +37,38 @@ button {
     transition: background 0.3s ease;
     box-shadow: 0 4px 6px rgba(59, 59, 59, 0.1);
 }
+/* Estilo para el botón de música */
+.btn-musica {
+    display: block;
+    margin: 10px auto 20px auto; /* Centrado con espacio abajo */
+    padding: 10px 20px;
+    font-size: 16px;
+    font-family: inherit;
+    font-weight: bold;
+    color: #555;
+    background-color: #ffffff;
+    border: 2px solid #ffb7c5; /* Un borde rosa pastel muy lindo */
+    border-radius: 30px;       /* Forma de píldora redondeada */
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+/* Efecto al pasar el cursor */
+.btn-musica:hover {
+    background-color: #a800ad;
+    color: rgb(8, 0, 122);
+    transform: translateY(-2px); /* Se eleva un poquito */
+    box-shadow: 0 6px 15px rgba(255, 183, 197, 0.4);
+}
+/* Estilo para el contador de tiempo */
+.tiempo-musica {
+    text-align: center;
+    font-size: 14px;
+    color: #ffffff;
+    font-family: monospace; /* Mantiene los números alineados fijamente */
+    margin: -10px auto 15px auto; /* Lo pega un poquito más al botón de arriba */
+}
 
 /* Efecto cuando pasas el mouse sobre el botón */
 button:hover {
