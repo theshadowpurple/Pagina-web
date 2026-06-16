@@ -1,41 +1,98 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html lang="es">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Nuestra Historia ❤️</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <header>
-            <h1>Hola mi vida, a travez de aqui, quiero que sepas 
-                que te amo con todo lo que soy,
-                y que cada dia que pasa, mi amor por ti crece 
-                mas y mas. Eres la luz que ilumina mi camino, 
-                la razón de mi felicidad y los latidos de mi 
-                corazón. Gracias por ser mi compañera de vida, 
-                mi confidente y mi mejor amiga. Te amo con todo mi ser, hoy y siempre.
-            </h1>
-        </header>
-        
+               
         <main>
-            <button id="elBoton">Toca aqui</button>
+            <section id="seccion-inicio">
+                <header>
+                    <h1>Hola mi vida, a travez de aqui, quiero que sepas 
+                        que te amo con todo lo que soy,
+                        y que cada dia que pasa, mi amor por ti crece 
+                        mas y mas. Eres la luz que ilumina mi camino, 
+                        la razón de mi felicidad y los latidos de mi 
+                        corazón. Gracias por ser mi compañera de vida, 
+                        mi confidente y mi mejor amiga. Te amo con todo mi ser, hoy y siempre.
+                    </h1>
+                </header>
+
+                <h2>NUESTRO TIEMPO JUNTOS ❤️</h2>
+                <div class="contenedor-botones">
+                    <button class="btn-mes" onclick="irAlMes('mes-0')">Antes de ser novios</button>
+                    <button class="btn-mes" onclick="irAlMes('mes-1')">Primer Mes</button>
+                    <button class="btn-mes" onclick="irAlMes('mes-2')">Segundo Mes</button>
+                    <button class="btn-mes" onclick="irAlMes('mes-3')">Tercer Mes</button>
+                </div>
+
+                <div class="portada-invitacion">
+                    <img src="./imagenes/foto1.jpg" alt="Invitación">
+                </div>
+            </section>
+
+            <section id="seccion-galeria" class="oculto">
+                <button id="btn-regresar" onclick="volverAlInicio()">← Volver al Inicio</button>
+                
+                <div id="mes-0" class="contenedor-mes oculto">
+                    <h3>Antes de ser novios❤️</h3>
+                    <p class="texto-dedicatoria">Desde el dia en el que te conocí, supe que algo especial iba a suceder, empecé a querer estar contigo
+                        y a imaginar un futuro juntos, aunque no sabía que ese futuro llegaría tan rápido. Cada momento que compartimos antes de ser novios fue mágico, lleno de risas, miradas cómplices y conversaciones interminables.
+                        Esos momentos fueron el inicio de nuestra hermosa historia de amor, y siempre los llevaré en mi corazón como el comienzo de algo maravilloso.
+                        Justo dias antes de ser novios, estaba tan nervioso por que el dia se acercaba tan rápido, que no podía con tanta emoción, porque era algo que llevaba planeando mucho tiempo,
+                        y por fin se estaba haciendo realidad, y ese dia fue el mejor de mi vida, porque pude estar contigo, y decirte lo mucho que te amo, y lo feliz que me haces.
+                    </p>
+                    <div class="galeria-fotos">
+                        <img src="./imagenes/primer_mes/f1.jpg" alt="Foto 1">
+                        <img src="./imagenes/primer_mes/f2.jpg" alt="Foto 2">
+                        <img src="./imagenes/primer_mes/f3.jpg" alt="Foto 3">
+                    </div>
+                </div>
+
+                <div id="mes-1" class="contenedor-mes oculto">
+                    <h3>Nuestro Primer Mes❤️</h3>
+                    <p class="texto-dedicatoria"></p>
+                    <div class="galeria-fotos">
+                        <img src="./imagenes/primer_mes/f.jpg" alt="Foto 1">
+                        <img src="./imagenes/primer_mes/f.jpg" alt="Foto 2">
+                        <img src="./imagenes/primer_mes/f.jpg" alt="Foto 3">
+                    </div>
+                </div>
+
+                <div id="mes-2" class="contenedor-mes oculto">
+                    <h3>Nuestro Segundo Mes❤️</h3>
+                    <p class="texto-dedicatoria">Escribe aquí tu bonita dedicatoria o anécdota de este mes...</p>
+                    <div class="galeria-fotos">
+                        <img src="imagenes/segundo_mes_1.jpg" alt="Foto 1">
+                        <img src="imagenes/segundo_mes_2.jpg" alt="Foto 2">
+                    </div>
+                </div>
+
+                <div id="mes-3" class="contenedor-mes oculto">
+                    <h3>Nuestro Tercer Mes❤️</h3>
+                    <p class="texto-dedicatoria">Escribe aquí tu bonita dedicatoria o anécdota de este mes...</p>
+                    <div class="galeria-fotos">
+                        <img src="imagenes/tercer_mes_1.jpg" alt="Foto 1">
+                    </div>
+                </div>
+            </section>
         </main>
+
+        <div id="lightbox" class="lightbox oculto" onclick="cerrarImagen()">
+            <span class="cerrar-lightbox">&times;</span>
+            <img id="img-lightbox" src="" alt="Pantalla Completa">
+        </div>
+
         <aside>
-            <button id="botonMusica" class ="btn-musica">Reproducir música 🎵 </button> 
-            <p id="contador" class="tiempo-musica">0:00 / 0:00 </p>
+            <button id="botonMusica" class="btn-musica">Reproducir música 🎵</button> 
+            <p id="contador" class="tiempo-musica">0:00 / 0:00</p>
         </aside>
-        <script src="script.js" async defer></script>
+
+        <script src="script.js"></script>
     </body>
-    <aside>
-            <img src="./imagenes/foto1.jpg" alt="Invitación"">
-        </aside>
-    
-     
 </html>
