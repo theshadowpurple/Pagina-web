@@ -1,15 +1,61 @@
 body {
     font-family: 'arial black', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #353333;
+    /* Unificado: Capa de estrellas + Degradado base del atardecer oscuro */
+    background: 
+        radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+        radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+        linear-gradient(-45deg, #1b0c1f, #480c5f, #381e2e, #2f153d);
+    background-size: 550px 550px, 350px 350px, 400% 400%;
+    background-position: 0 0, 40px 60px, 0% 50%;
+    animation: fondoAnimado 10s ease infinite; /* El fondo se moverá solo lentamente */
     color: #ffffff;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100vh; /* Permite que la página crezca hacia abajo con las fotos */
+    min-height: 100vh; 
     margin: 0;
-    padding: 20px; /* Evita que el texto toque las esquinas en celulares */
+    padding: 20px; 
     box-sizing: border-box;
+    overflow-x: hidden; /* Evita que los corazones ensanchen la pantalla en celulares */
+    position: relative;
+}
+
+/* Animación para que el fondo cambie de tono suavemente */
+@keyframes fondoAnimado {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* ==========================================
+   EFECTO AURA: DECORACIONES DE LUCES DE FONDO
+   ========================================== */
+body::before, body::after {
+    content: "";
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: rgba(155, 0, 175, 0.295); 
+    filter: blur(80px);
+    z-index: 0; /* Al fondo de todo */
+    pointer-events: none;
+    animation: moverLuces 8s ease-in-out infinite alternate;
+}
+
+body::after {
+    background: rgba(249, 75, 255, 0.15); /* El rosa de los corazones */
+    width: 400px;
+    height: 400px;
+    animation-duration: 18s;
+    animation-delay: -2s;
+}
+
+@keyframes moverLuces {
+    0% { top: 10%; left: 10%; transform: scale(1); }
+    50% { top: 50%; left: 80%; transform: scale(1.2); }
+    100% { top: 80%; left: 30%; transform: scale(0.9); }
 }
 
 main {
@@ -19,31 +65,89 @@ main {
     margin-top: 20px;
     width: 100%;             /* Asegura que ocupe el ancho disponible */
     max-width: 800px;        /* Evita que se estire demasiado en PC */
+    position: relative;
+    z-index: 2; /* Por encima de los brillos de fondo */
 }
 
 /* Estilo para el título principal */
 h1 {
-    text-align: center; /* Alinea el título al centro */
+    text-align: center; 
     color: #ffffff;
-    font-size: 25px;
+    font-size: 40px;
 }
 
 /* Estilo para los subtítulos */
 h2 {
-    text-align: center; /* Alinea el título al centro */
+    text-align: center; 
     color: #fdfdfd;
-    font-size: 40px;
+    font-size: 25px;
 }
 h3 {
-    text-align: center; /* Alinea el título al centro */
+    text-align: center; 
     color: #fdfdfd;
     font-size: 35px;
 }
 
-/* Estilo para el botón de música */
+/* ==========================================
+   ESTILOS DEL CONTENEDOR MULTI-CANCIÓN
+   ========================================== */
+
+/* Caja contenedora de todo el widget de música */
+.reproductor-contenedor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px auto;
+    width: 100%;
+    position: relative;
+    z-index: 3; /* Asegura clics limpios en los botones */
+}
+
+/* El indicador de texto para saber qué canción suena */
+.titulo-cancion {
+    font-size: 16px;
+    color: #ffb7c5;
+    margin-bottom: 10px;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Fila flexible para alinear ⏮️, el botón rosa y ⏭️ */
+.controles-musica {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+/* Estilo para los botones de Anterior y Siguiente */
+.btn-control {
+    background-color: #ffffff;
+    border: 2px solid #ffb7c5;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.btn-control:hover {
+    background-color: #ee87f1;
+    transform: scale(1.1);
+}
+
+/* Estilo para el botón de música central */
 .btn-musica {
     display: block;
-    margin: 10px auto 20px auto; /* Centrado con espacio abajo */
+    margin: 0 !important; /* Forzamos reinicio de márgenes para la alineación en fila */
     padding: 10px 20px;
     font-size: 20px;
     font-family: inherit;
@@ -71,7 +175,7 @@ h3 {
     font-size: 14px;
     color: #ffffff;
     font-family: monospace; /* Mantiene los números alineados fijamente */
-    margin: -10px auto 15px auto; /* Lo pega un poquito más al botón de arriba */
+    margin: 5px auto 15px auto;
 }
 
 /* Estilo exclusivo para la imagen de invitación de portada */
@@ -223,4 +327,34 @@ h3 {
 @keyframes zoom {
     from { transform: scale(0.9); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
+}
+
+/* ==========================================
+   ESTILOS ADICIONALES DE LOS CORAZONES FLOTANTES
+   ========================================== */
+.corazon-flotante {
+    position: fixed;
+    color: #ff4b5c; 
+    font-size: 20px;
+    pointer-events: none; 
+    z-index: 1; /* Por encima del aura y estrellas, por detrás de las tarjetas */
+    animation: flotar 8s ease-in-out infinite; 
+    opacity: 0;
+}
+
+@keyframes flotar {
+    0% {
+        transform: translateY(105vh) translateX(0) scale(0.5) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.7;
+    }
+    90% {
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(-10vh) translateX(var(--desplazamiento-x, 50px)) scale(1.2) rotate(var(--rotacion, 20deg));
+        opacity: 0;
+    }
 }

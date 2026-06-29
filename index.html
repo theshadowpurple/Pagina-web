@@ -9,21 +9,14 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-               
+
         <main>
             <section id="seccion-inicio">
                 <header>
-                    <h1>Hola mi vida, a travez de aqui, quiero que sepas 
-                        que te amo con todo lo que soy,
-                        y que cada dia que pasa, mi amor por ti crece 
-                        mas y mas. Eres la luz que ilumina mi camino, 
-                        la razón de mi felicidad y los latidos de mi 
-                        corazón. Gracias por ser mi compañera de vida, 
-                        mi confidente y mi mejor amiga. Te amo con todo mi ser, hoy y siempre.
+                    <h1>ESCRIBIENDO NUESTRA HISTORIA ❤️
                     </h1>
                 </header>
 
-                <h2>NUESTRO TIEMPO JUNTOS ❤️</h2>
                 <div class="contenedor-botones">
                     <button class="btn-mes" onclick="irAlMes('mes-0')">Antes de ser novios</button>
                     <button class="btn-mes" onclick="irAlMes('mes-1')">Primer Mes</button>
@@ -40,7 +33,7 @@
                 <button id="btn-regresar" onclick="volverAlInicio()">← Volver al Inicio</button>
                 
                 <div id="mes-0" class="contenedor-mes oculto">
-                    <h3>Antes de ser novios❤️</h3>
+                    <h3>Antes de ser novios ❤️</h3>
                     <p class="texto-dedicatoria">Desde el dia en el que te conocí, supe que algo especial iba a suceder, empecé a querer estar contigo
                         y a imaginar un futuro juntos, aunque no sabía que ese futuro llegaría tan rápido. Cada momento que compartimos antes de ser novios fue mágico, lleno de risas, miradas cómplices y conversaciones interminables.
                         Esos momentos fueron el inicio de nuestra hermosa historia de amor, y siempre los llevaré en mi corazón como el comienzo de algo maravilloso.
@@ -48,33 +41,41 @@
                         y por fin se estaba haciendo realidad, y ese dia fue el mejor de mi vida, porque pude estar contigo, y decirte lo mucho que te amo, y lo feliz que me haces.
                     </p>
                     <div class="galeria-fotos">
-                        <img src="./imagenes/primer_mes/f1.jpg" alt="Foto 1">
-                        <img src="./imagenes/primer_mes/f2.jpg" alt="Foto 2">
-                        <img src="./imagenes/primer_mes/f3.jpg" alt="Foto 3">
+                        <img src="./imagenes/saliendo/f1.jpg" alt="Foto 1">
+                        <img src="./imagenes/saliendo/f2.jpg" alt="Foto 2">
+                        <img src="./imagenes/saliendo/f3.jpg" alt="Foto 3">
+                        <img src="./imagenes/saliendo/f4.jpg" alt="Foto 4">
+                        <img src="./imagenes/saliendo/f5.jpg" alt="Foto 5">
+                        <img src="./imagenes/saliendo/f6.jpg" alt="Foto 6">
                     </div>
                 </div>
 
                 <div id="mes-1" class="contenedor-mes oculto">
-                    <h3>Nuestro Primer Mes❤️</h3>
-                    <p class="texto-dedicatoria"></p>
+                    <h3>Nuestro Primer Mes ❤️</h3>
+                    <p class="texto-dedicatoria">El primer mes de nuestra relación fue lleno de descubrimientos mutuos,
+                        risas compartidas y momentos inolvidables, jamás me hubiera imaginado que podria sentir tanto por
+                        alguien, y aunque tenia miedo, estaba dispuesto a arriesgarme por ti, y eso ha sido la mejor desición que pude haber tomado</p>
                     <div class="galeria-fotos">
-                        <img src="./imagenes/primer_mes/f.jpg" alt="Foto 1">
-                        <img src="./imagenes/primer_mes/f.jpg" alt="Foto 2">
-                        <img src="./imagenes/primer_mes/f.jpg" alt="Foto 3">
+                        <img src="./imagenes/primer_mes/f1.png" alt="Foto 1">
+                        <img src="./imagenes/primer_mes/f2.jpg" alt="Foto 2">
+                        <img src="./imagenes/primer_mes/f3.jpg" alt="Foto 3">
+                        <img src="./imagenes/primer_mes/f4.jpg" alt="Foto 4">
+                        <img src="./imagenes/primer_mes/f5.jpg" alt="Foto 5">
+                        <img src="./imagenes/primer_mes/f6.jpg" alt="Foto 6">
                     </div>
                 </div>
 
                 <div id="mes-2" class="contenedor-mes oculto">
-                    <h3>Nuestro Segundo Mes❤️</h3>
+                    <h3>Nuestro Segundo Mes ❤️</h3>
                     <p class="texto-dedicatoria">Escribe aquí tu bonita dedicatoria o anécdota de este mes...</p>
                     <div class="galeria-fotos">
-                        <img src="imagenes/segundo_mes_1.jpg" alt="Foto 1">
-                        <img src="imagenes/segundo_mes_2.jpg" alt="Foto 2">
+                        <img src="./imagenes/segundo_mes/f1.jpg" alt="Foto 1">
+                        <img src="./imagenes/segundo_mes/f2.jpg" alt="Foto 2">
                     </div>
                 </div>
 
                 <div id="mes-3" class="contenedor-mes oculto">
-                    <h3>Nuestro Tercer Mes❤️</h3>
+                    <h3>Nuestro Tercer Mes ❤️</h3>
                     <p class="texto-dedicatoria">Escribe aquí tu bonita dedicatoria o anécdota de este mes...</p>
                     <div class="galeria-fotos">
                         <img src="imagenes/tercer_mes_1.jpg" alt="Foto 1">
@@ -88,8 +89,13 @@
             <img id="img-lightbox" src="" alt="Pantalla Completa">
         </div>
 
-        <aside>
-            <button id="botonMusica" class="btn-musica">Reproducir música 🎵</button> 
+        <aside class="reproductor-contenedor">
+            <p id="titulo-cancion" class="titulo-cancion">Cargando música... 🎵</p>
+            <div class="controles-musica">
+                <button id="botonAnterior" class="btn-control" onclick="anteriorCancion()">⏮️</button>
+                <button id="botonMusica" class="btn-musica">Reproducir música 🎵</button> 
+                <button id="botonSiguiente" class="btn-control" onclick="siguienteCancion()">⏭️</button>
+            </div>
             <p id="contador" class="tiempo-musica">0:00 / 0:00</p>
         </aside>
 

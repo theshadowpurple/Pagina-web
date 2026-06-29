@@ -1,11 +1,41 @@
-// 1. CONFIGURACIÓN DEL REPRODUCTOR DE AUDIO
-const musica = new Audio('https://theshadowpurple.github.io/Pagina-web/musica/amor-completo.mp3');
-musica.loop = true; 
-musica.load(); // Fuerza la carga en dispositivos móviles
+// Agrega aquí todas las canciones que quieras dedicarle
+const listaCanciones = [
+    {
+        titulo: "Amor Completo 🌹",
+        url: "https://theshadowpurple.github.io/Pagina-web/musica/amor-completo.mp3"
+    },
+    {
+        titulo: "Mi Canción Favorita ❤️",
+        url: "https://theshadowpurple.github.io/Pagina-web/musica/otra-cancion.mp3" // <-- Reemplaza con tus URLs reales cuando las tengas
+    },
+    {
+        titulo: "Nuestra Historia ✨",
+        url: "https://theshadowpurple.github.io/Pagina-web/musica/tercera-cancion.mp3"
+    }
+];
 
-// 2. SELECCIÓN DE ELEMENTOS DEL HTML
+let indiceActual = 0; 
+const musica = new Audio();
+musica.loop = false; // Falso para que al terminar salte automáticamente a la siguiente
+
+// SELECTORES DEL HTML
 const botonMusica = document.getElementById('botonMusica');
 const contador = document.getElementById('contador');
+const tituloCancion = document.getElementById('titulo-cancion');
+
+// Carga los datos de la canción en el reproductor sin darle play aún
+function cargarCancion(indice) {
+    if (listaCanciones[indice]) {
+        musica.src = listaCanciones[indice].url;
+        if (tituloCancion) {
+            tituloCancion.innerHTML = `Sonando: ${listaCanciones[indice].titulo}`;
+        }
+        musica.load();
+    }
+}
+
+// Inicializamos cargando la primera canción al abrir el sitio
+cargarCancion(indiceActual);
 
 // FUNCIÓN AUXILIAR: Transforma segundos sueltos a formato "Minutos:Segundos" (0:00)
 function formatearTiempo(segundos) {
@@ -15,7 +45,7 @@ function formatearTiempo(segundos) {
     return `${minutos}:${segRestantes < 10 ? '0' : ''}${segRestantes}`;
 }
 
-// EVENTO DE ESCUCHA: Actualiza la barra de tiempo en tiempo real mientras la música avanza
+// ACTUALIZACIÓN DE TIEMPO: Corre mientras el audio avanza
 musica.addEventListener('timeupdate', () => {
     const tiempoActual = formatearTiempo(musica.currentTime);
     const tiempoTotal = formatearTiempo(musica.duration);
@@ -25,88 +55,121 @@ musica.addEventListener('timeupdate', () => {
     }
 });
 
-// LÓGICA DEL BOTÓN DE MÚSICA (Play / Pausa)
-botonMusica.addEventListener('click', (e) => {
-    e.stopPropagation(); // Evita interferencias de eventos
+// CAMBIO AUTOMÁTICO: Salta a la siguiente canción al terminar la actual
+musica.addEventListener('ended', () => {
+    siguienteCancion();
+});
 
-    if (musica.paused) {
-        musica.play()
-            .then(() => {
+// FUNCIONES DE REPRODUCCIÓN (Play / Pausa)
+function reproducirAudio() {
+    musica.play()
+        .then(() => {
+            if (botonMusica) {
                 botonMusica.innerHTML = "Pausar música ⏸️";
                 botonMusica.style.color = "#000000";
-            })
-            .catch(error => console.log("Error al reproducir:", error));
-    } else {
-        musica.pause();
+            }
+        })
+        .catch(error => console.log("Error al reproducir:", error));
+}
+
+function pausarAudio() {
+    musica.pause();
+    if (botonMusica) {
         botonMusica.innerHTML = "Reanudar música 🎵";
         botonMusica.style.color = "#000000";
     }
-});
+}
+
+// Lógica de interacción del botón central de Play/Pausa
+if (botonMusica) {
+    botonMusica.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (musica.paused) {
+            reproducirAudio();
+        } else {
+            pausarAudio();
+        }
+    });
+}
+
+// CONTROLES DE NAVEGACIÓN (Siguiente / Anterior)
+function siguienteCancion() {
+    const estabaReproduciendose = !musica.paused;
+    indiceActual++;
+    
+    if (indiceActual >= listaCanciones.length) {
+        indiceActual = 0; // Vuelve al inicio si llega al final
+    }
+    
+    cargarCancion(indiceActual);
+    if (estabaReproduciendose) reproducirAudio();
+}
+
+function anteriorCancion() {
+    const estabaReproduciendose = !musica.paused;
+    indiceActual--;
+    
+    if (indiceActual < 0) {
+        indiceActual = listaCanciones.length - 1; // Va a la última si retrocede desde la primera
+    }
+    
+    cargarCancion(indiceActual);
+    if (estabaReproduciendose) reproducirAudio();
+}
 
 
 // =========================================================================
-// SCRIPT DE LA GALERÍA CON ENRUTAMIENTO POR HASH (#) Y CONTROL DE INTERFAZ
+// 2. SCRIPT DE LA GALERÍA CON ENRUTAMIENTO POR HASH (#)
 // =========================================================================
 
-// Cambia la URL en la barra de direcciones del navegador
 function irAlMes(idDelMes) {
     window.location.hash = idDelMes;
 }
 
-// Limpia el hash de la URL para regresar al inicio
 function volverAlInicio() {
     window.location.hash = "";
 }
 
-// Enrutador inteligente: lee la URL actual y oculta/muestra lo que corresponde
 function enrutador() {
-    const hashActual = window.location.hash; // Captura el "#mes-1", "#mes-2", etc.
+    const hashActual = window.location.hash; 
     const seccionInicio = document.getElementById("seccion-inicio");
     const seccionGaleria = document.getElementById("seccion-galeria");
     const todosLosMeses = document.querySelectorAll('.contenedor-mes');
+    const reproductorContenedor = document.querySelector('.reproductor-contenedor');
 
-    // CASO A: Si estamos en la página de inicio (URL limpia sin hash)
     if (hashActual === "" || hashActual === "#") {
         if (seccionGaleria) seccionGaleria.classList.add("oculto");
         if (seccionInicio) seccionInicio.classList.remove("oculto");
         
-        // Muestra el reproductor y el contador en la pantalla de inicio
-        if (botonMusica) botonMusica.classList.remove("oculto");
-        if (contador) contador.classList.remove("oculto");
+        // Muestra el reproductor completo en el inicio
+        if (reproductorContenedor) reproductorContenedor.classList.remove("oculto");
     } 
-    // CASO B: Si la URL cambió a la sección de algún mes (ej: #mes-1)
     else {
-        if (seccionInicio) seccionInicio.add ? seccionInicio.classList.add("oculto") : seccionInicio.classList.add("oculto");
+        if (seccionInicio) seccionInicio.classList.add("oculto"); // CORRECCIÓN: Código limpio sin ternarios raros
         if (seccionGaleria) seccionGaleria.classList.remove("oculto");
         
-        // Oculta el reproductor y el contador dentro de las fotos de los meses
-        if (botonMusica) botonMusica.classList.add("oculto");
-        if (contador) contador.classList.add("oculto");
+        // Oculta el reproductor completo dentro de las galerías
+        if (reproductorContenedor) reproductorContenedor.classList.add("oculto");
 
-        // Ocultamos todos los meses para evitar que se pisen visualmente
         todosLosMeses.forEach(mes => mes.classList.add("oculto"));
 
-        // Quitamos el carácter '#' para obtener el ID limpio del contenedor HTML (ej: "mes-1")
         const idLimpio = hashActual.replace("#", "");
         const mesActivo = document.getElementById(idLimpio);
 
-        // Si el contenedor existe en el HTML, lo encendemos
         if (mesActivo) {
             mesActivo.classList.remove("oculto");
         }
     }
 }
 
-// Oyentes de eventos globales para monitorear los cambios de URL
 window.addEventListener('hashchange', enrutador); 
 window.addEventListener('load', enrutador);       
 
 
 // =========================================================================
-// LÓGICA PARA LA PANTALLA COMPLETA (LIGHTBOX)
+// 3. LÓGICA PARA LA PANTALLA COMPLETA (LIGHTBOX)
 // =========================================================================
 
-// Detecta clics en las imágenes de las galerías para abrirlas en pantalla completa
 document.addEventListener("click", (e) => {
     if (e.target.tagName === "IMG" && e.target.closest(".galeria-fotos")) {
         const srcDeLaFoto = e.target.src; 
@@ -121,10 +184,46 @@ document.addEventListener("click", (e) => {
     }
 });
 
-// Función global vinculada al HTML para cerrar la imagen al hacer clic fuera o en la X
 function cerrarImagen() {
     const contenedorLightbox = document.getElementById("lightbox");
     if (contenedorLightbox) {
         contenedorLightbox.classList.add("oculto"); 
     }
 }
+
+
+// =========================================================================
+// 4. EFECTO DE CORAZONES FLOTANTES CON MOVIMIENTO LIBRE
+// =========================================================================
+
+function crearCorazon() {
+    const corazon = document.createElement("div");
+    corazon.classList.add("corazon-flotante");
+    
+    const models = ["❤️", "💖", "💝", "💕"];
+    corazon.innerText = models[Math.floor(Math.random() * models.length)];
+    
+    corazon.style.left = Math.random() * 100 + "vw";
+    
+    const tamaño = Math.random() * 15 + 15; 
+    corazon.style.fontSize = tamaño + "px";
+    
+    const duracion = Math.random() * 5 + 6;
+    corazon.style.animationDuration = duracion + "s";
+    
+    const vaivenHorizontal = (Math.random() * 160 - 80) + "px";
+    const inclinacionAleatoria = (Math.random() * 70 - 35) + "deg";
+    
+    corazon.style.setProperty('--desplazamiento-x', vaivenHorizontal);
+    corazon.style.setProperty('--rotacion', inclinacionAleatoria);
+    
+    corazon.style.opacity = Math.random() * 0.5 + 0.3;
+
+    document.body.appendChild(corazon);
+
+    setTimeout(() => {
+        corazon.remove();
+    }, duracion * 1000);
+}
+
+setInterval(crearCorazon, 400);
